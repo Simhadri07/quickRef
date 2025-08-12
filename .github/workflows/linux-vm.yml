@@ -1,18 +1,35 @@
 name: Linux VM Practice
 
 on:
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
 
 jobs:
   create-vm:
     runs-on: ubuntu-latest
     steps:
-      - name: Set up tmate session
+      - name: Update & Install Common Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            openjdk-17-jdk \
+            python3 python3-pip \
+            nodejs npm \
+            git maven gradle \
+            docker.io docker-compose \
+            unzip curl wget vim nano
+
+          echo "✅ Installed tools:"
+          java -version
+          python3 --version
+          node -v
+          git --version
+          mvn -v
+          docker --version
+
+      - name: Start tmate session (SSH + Web)
         uses: mxschmitt/action-tmate@v3
         with:
-          limit-access-to-actor: true  # Only you can connect
+          limit-access-to-actor: true
 
-      - name: Show connection instructions
-        run: |
-          echo "Your Linux VM is ready!"
-          echo "You'll see SSH details above once tmate starts."
+      - name: Keep VM alive for 6 hours
+        run: sleep 6h
