@@ -1,18 +1,1 @@
-name: Linux VM Practice
-
-on:
-  workflow_dispatch: # Manual trigger
-
-jobs:
-  create-vm:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up tmate session
-        uses: mxschmitt/action-tmate@v3
-        with:
-          limit-access-to-actor: true  # Only you can connect
-
-      - name: Show connection instructions
-        run: |
-          echo "Your Linux VM is ready!"
-          echo "You'll see SSH details above once tmate starts."
+test
